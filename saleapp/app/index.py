@@ -1,7 +1,6 @@
-from app import app
-from app import dao
-from flask import render_template, request
-from app import admin
+from app import app, dao, admin, login
+from flask import render_template, request, redirect
+from flask_login import login_user
 
 
 @app.route("/")
@@ -22,6 +21,25 @@ def common_attr():
 
     return {'categories' : categories}
 
+@login.user_loader
+def load_user(user_id):
+    return dao.get_user_by_id(user_id)
+
+@app.route('/login_admin', methods = ['post'])
+def login_admin():
+    username =request.form['username']
+    password = request.form['password']
+
+@app.route('/login-admin', methods=['post'])
+def login_admin():
+    username = request.form['username']
+    password = request.form['password']
+
+    user = dao.auth_user(username=username,password=password)
+    if user:
+        login_user(user=user)
+
+    return redirect('/admin')
 
 if __name__ == "__main__":
     app.run(debug=True)
