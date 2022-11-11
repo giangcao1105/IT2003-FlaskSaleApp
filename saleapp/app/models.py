@@ -4,7 +4,7 @@ from app import db, app
 from enum import Enum as UserEnum
 from flask_login import UserMixin
 
-class UserRole(UserEnum):
+class UserRoleEnum(UserEnum):
     USER = 1
     ADMIN = 2
 
@@ -39,7 +39,7 @@ class User(BaseModel, UserMixin):
     password = Column(String(50), nullable=False)
     avatar = Column(String(100), nullable=False)
     active = Column(Boolean, default=True)
-    user_role = Column(Enum(UserRole), default=UserRole.USER)
+    user_role = Column(Enum(UserRoleEnum), default=UserRoleEnum.USER)
 
     def __str__(self):
         return self.name
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         password = str(hashlib.md5('123456'.encode('utf-8')).digest())
         u = User(name = 'test01', username = 'admin', password=password,
                  avatar='https://www.pinterest.com/pin/695735842423409439/',
-                 user_role=UserRole.ADMIN)
+                 user_role=UserRoleEnum.ADMIN)
 
         db.session.add(u)
         db.session.commit()
