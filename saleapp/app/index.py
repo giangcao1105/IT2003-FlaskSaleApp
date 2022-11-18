@@ -30,8 +30,10 @@ def register():
                 avatar = res['secure_url']
             #Save user
             try:
-                dao.register(name=request.form['name'], username=request.form['username'],
-                             password=request.form['password'], avatar=avatar)
+                dao.register(name=request.form['name'],
+                             username=request.form['username'],
+                             password=request.form['password'],
+                             avatar=avatar)
             except:
                 err_msg = 'Đã có lỗi xảy ra vui lòng quay lại sau !'
             else:

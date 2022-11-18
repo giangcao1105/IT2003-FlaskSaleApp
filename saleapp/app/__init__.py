@@ -14,6 +14,7 @@ login = LoginManager(app=app)
 babel = Babel(app=app)
 
 cloudinary.config(could_name='dvw4ctufi', api_key='343499667495141', api_secret='oRuMhhtQvQPTbYSVkzQaQ1Ru0y4')
+
 @babel.localeselector
 def load_locale():
     return 'vi'
